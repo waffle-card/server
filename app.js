@@ -3,6 +3,7 @@ import 'express-async-errors';
 import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
+import authRouter from './router/auth.js';
 
 const app = express();
 
@@ -14,6 +15,8 @@ app.use(morgan('tiny'));
 app.get('/', (req, res) => {
   res.status(200).json({ message: 'welcome to waffleCard!' });
 });
+
+app.use('/auth', authRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not Found' });
