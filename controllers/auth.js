@@ -10,7 +10,7 @@ function createJwtToken(id) {
   });
 }
 
-export async function signup(req, res) {
+export const signup = async (req, res) => {
   const { name, email, password } = req.body;
   const found = await userRepository.findByEmail(name);
 
@@ -29,4 +29,4 @@ export async function signup(req, res) {
 
   const token = createJwtToken(userId);
   res.status(201).json({ token, userId, name, email });
-}
+};

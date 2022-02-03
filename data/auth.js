@@ -11,14 +11,14 @@ useVirtualId(userSchema);
 
 const User = Mongoose.model('User', userSchema);
 
-export async function findByEmail(email) {
+export const findByEmail = async email => {
   return User.findOne({ email });
-}
+};
 
-export async function findById(id) {
+export const findById = async id => {
   return User.findById(id);
-}
+};
 
-export async function createUser(user) {
+export const createUser = async user => {
   return new User(user).save().then(data => data.id);
-}
+};
