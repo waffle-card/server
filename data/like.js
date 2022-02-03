@@ -18,6 +18,10 @@ export const getByUserId = async userId => {
   return Like.findOne({ userId });
 };
 
+export const getAllByUserId = async userId => {
+  return Like.find({ userId });
+};
+
 export const getByWaffleCardId = async waffleCardId => {
   return Like.findOne({ userId });
 };

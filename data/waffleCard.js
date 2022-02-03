@@ -26,6 +26,10 @@ export const getById = async id => {
   return WaffleCard.findById(id);
 };
 
+export const getAllByIds = async ids => {
+  return Promise.all(ids.map(id => WaffleCard.findById(id)));
+};
+
 export const getByUserId = async userId => {
   return WaffleCard.findOne({ userId });
 };

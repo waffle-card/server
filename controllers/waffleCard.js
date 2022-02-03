@@ -1,5 +1,6 @@
 import * as waffleCardRepository from '../data/waffleCard.js';
 import * as userRepository from '../data/auth.js';
+import * as likeInfosRepository from '../data/like.js';
 import { isValidId } from './utils.js';
 
 export const getWaffleCards = async (req, res) => {
@@ -11,6 +12,14 @@ export const getWaffleCardsByUserId = async (req, res) => {
   const userId = req.userId;
   const waffleCard = await waffleCardRepository.getByUserId(userId);
   res.status(200).json(waffleCard);
+};
+
+export const getWaffleCardsByUserLiked = async (req, res) => {
+  const userId = req.userId;
+  const likes = await likeInfosRepository.getAllByUserId(userId);
+  const waffleCardIds = likes.map(like => like.waffleCardId);
+  const waffleCards = await waffleCardRepository.getAllByIds(waffleCardIds);
+  res.status(200).json(waffleCards);
 };
 
 export const createWaffleCard = async (req, res) => {
