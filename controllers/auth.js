@@ -53,16 +53,13 @@ export const login = async (req, res) => {
 
 export const me = async (req, res) => {
   const user = await userRepository.findById(req.userId);
-  console.log(req);
   if (!user) {
     return res.status(404).json({ message: '조냊하지 않는 유저입니다.' });
   }
-  res
-    .status(200)
-    .json({
-      token: req.token,
-      id: user.id,
-      name: user.name,
-      email: user.email,
-    });
+  res.status(200).json({
+    token: req.token,
+    id: user.id,
+    name: user.name,
+    email: user.email,
+  });
 };
