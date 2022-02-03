@@ -64,3 +64,23 @@ export const update = async (id, waffleCardInfo) => {
 export const remove = async id => {
   return WaffleCard.findByIdAndDelete(id);
 };
+
+export const countUpLike = async id => {
+  const waffleCard = await WaffleCard.findById(id);
+
+  return WaffleCard.findByIdAndUpdate(
+    id,
+    { likeCount: ++waffleCard.likeCount },
+    { returnOriginal: false }
+  );
+};
+
+export const countDownLike = async id => {
+  const waffleCard = await WaffleCard.findById(id);
+
+  return WaffleCard.findByIdAndUpdate(
+    id,
+    { likeCount: --waffleCard.likeCount },
+    { returnOriginal: false }
+  );
+};
