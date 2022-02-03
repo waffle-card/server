@@ -37,6 +37,10 @@ export const updateWaffleCard = async (req, res) => {
   const waffleCardId = req.params.id;
   const waffleCard = await waffleCardRepository.getById(waffleCardId);
 
+  if (!waffleCard) {
+    return res.status(404).json({ message: `와플카드가 존재하지 않습니다.` });
+  }
+
   if (waffleCard.userId !== req.userId) {
     return res.status(403).json({ message: `삭제 권한이 없습니다.` });
   }
