@@ -1,1 +1,483 @@
-# server
+## 와플카드 API 명세서
+
+
+
+## 스키마
+
+### 유저
+
+```json
+{
+	id: String,
+	email: String,
+	name: String,
+	password: String,
+}
+```
+
+- name: 2 ~ 12글자
+
+- 이메일 형식 올바르게
+- 비밀번호: 6글자 ~ 15글자 (공백사용가능)
+
+
+
+### 와플카드
+
+```json
+{
+	id: String,
+	userId: String,
+	userName: String,
+	emoji: String,
+	color: String,
+	hashTags: String[],
+	likeCount: Sumber,
+	createdAt: String,
+	updatedAt: String,
+}
+```
+
+
+
+### 댓글
+
+```json
+{
+	id: String,
+	userId: String,
+	userName: String,
+	waffleCardId: String,
+	text: String,
+	createdAt: String,
+	updatedAt: String,
+}
+```
+
+
+
+### 좋아요
+
+```json
+{
+	id: string,
+	userId: string,
+	waffleCardId: string,
+}
+```
+
+
+
+<br>
+
+
+
+## API 요청 요약
+
+#### Host
+
+- [`https://waffle-card.herokuapp.com`](https://waffle-card.herokuapp.com/)
+
+
+
+#### Auth
+
+- 회원가입 : `POST/auth/signup`
+- 로그인: `POST/auth/login`
+- 토큰유효검사: 🔐 `GET/auth/me`
+
+
+
+#### WaffleCard
+
+- 와플카드 전체목록 불러오기 : `GET/waffleCards`
+- 나의 와플카드 불러오기 : 🔐 `GET/waffle-cards/my`
+- 좋아요한 와플카드 목록 불러오기: 🔐 `GET/waffle-cards/like`
+- 와플카드 생성하기 : 🔐 `POST/waffle-cards`
+- 와플카드 수정하기 : 🔐 `PUT/waffle-cards/:id`
+- 와플카드 삭제하기 : 🔐 `DELETE/waffle-cards/:id`
+
+
+
+#### Comment
+
+- 와플카드에 속한 댓글 불러오기 : `GET/comments?waffle-card-id={waffleCardId}`
+- 댓글 생성하기 : 🔐 `POST/comments`
+- 댓글 수정하기 : 🔐 `PUT/comments/:id`
+- 댓글 삭제하기 : 🔐 `DELETE/comments/:id`
+
+
+
+#### Like
+
+- 좋아요 생성 : 🔐 `POST/likes`
+- 좋아요 삭제 : 🔐 `DELETE/likes`
+
+
+
+<br>
+
+
+
+## API 요청
+
+### Error Response
+
+```json
+{
+	message: String
+}
+```
+
+
+
+<br>
+
+
+
+### Auth
+
+#### 회원가입
+
+```
+POST /auth/signup
+// Request Body
+{
+  "email": String,
+  "password": String
+}
+
+// Response 201 ok
+{
+    "token": String,
+    "id": String,
+    "name": String,
+    "email": String
+}
+```
+
+#### 로그인
+
+```
+POST /auth/login
+// Request Body
+{
+  "email": String,
+  "password": String
+}
+
+// Response 200 ok
+{
+    "token": String,
+    "id": String,
+    "name": String,
+    "email": String
+}
+```
+
+#### JWT 유효성 검사
+
+```
+GET /auth/me
+// Request Header
+Authorization: bearer JWT토큰
+
+// Response 200 ok
+{
+    "token": String,
+    "id": String,
+    "name": String,
+    "email": String
+}
+```
+
+
+
+<br>
+
+
+
+### WaffleCard
+
+#### 와플카드 전체목록 불러오기
+
+```
+GET /waffleCards
+// Response 200 ok
+{
+	"id": String,
+	"userId": String,
+	"userName": String,
+	"emoji": String,
+	"color": String,
+	"hashTags": String[],
+	"likeCount": Number,
+	"createdAt": String,
+	"updatedAt": String,
+}
+```
+
+
+
+#### 나의 와플카드 불러오기
+
+```
+GET /waffle-cards/my
+// Request Header
+Authorization: bearer JWT토큰
+
+// Response 200 ok
+{
+	"id": String,
+	"userId": String,
+	"userName": String,
+	"emoji": String,
+	"color": String,
+	"hashTags": String[],
+	"likeCount": Number,
+	"createdAt": String,
+	"updatedAt": String,
+}
+```
+
+
+
+#### 좋아요한 와플카드 목록 불러오기
+
+```
+GET /waffle-cards/like
+// Request Header
+Authorization: bearer JWT토큰
+
+// Response 200 ok
+[
+	{
+		"id": String,
+		"userId": String,
+		"userName": String,
+		"emoji": String,
+		"color": String,
+		"hashTags": String[],
+		"likeCount": Number,
+		"createdAt": String,
+		"updatedAt": String,
+	},
+	... // 와플카드 객체를 담은 배열 반환
+]
+```
+
+
+
+#### 와플카드 생성하기
+
+```
+POST /waffle-cards
+// Request Header
+Authorization: bearer JWT토큰
+
+// Request Body
+{
+    "emoji": "👽",
+    "color": "#123456",
+    "hashTags": ["안녕", "클레오파트라", "세상에서", "제일가는", "포테이토칩"]
+}
+
+// Response 201 ok
+{
+	"id": String,
+	"userId": String,
+	"userName": String,
+	"emoji": String,
+	"color": String,
+	"hashTags": String[],
+	"likeCount": Number,
+	"createdAt": String,
+	"updatedAt": String,
+}
+```
+
+
+
+#### 와플카드 수정하기
+
+```
+PUT /waffle-cards/:id
+// Request Header
+Authorization: bearer JWT토큰
+
+// Request Body
+{
+    "emoji": "👽",
+    "color": "#123456",
+    "hashTags": ["안녕", "클레오파트라", "세상에서", "제일가는", "포테이토칩"]
+}
+
+// Response 200 ok
+{
+	"id": String,
+	"userId": String,
+	"userName": String,
+	"emoji": String,
+	"color": String,
+	"hashTags": String[],
+	"likeCount": Number,
+	"createdAt": String,
+	"updatedAt": String,
+}
+```
+
+
+
+#### 와플카드 삭제하기
+
+```
+DELETE /waffle-cards/:id
+// Request Header
+Authorization: bearer JWT토큰
+
+// Response 204 ok
+```
+
+
+
+<br>
+
+
+
+### Comment
+
+#### 와플카드에 속한 댓글 불러오기
+
+```
+GET /comments?waffle-card-id={waffleCardId}
+// Request Params
+waffle-card-id: waffleCardId
+
+// Response 200 ok
+[
+	{
+	    "_id": String,
+	    "userId": String,
+	    "userName": String,
+	    "waffleCardId": String,
+	    "text": String,
+	    "createdAt": String,
+	    "updatedAt": String,
+	    "id": String
+	},
+	... // 댓글이 담긴 배열 반환
+]
+```
+
+
+
+#### 댓글 생성하기
+
+```
+POST /comments
+// Request Header
+Authorization: bearer JWT토큰
+
+// Request Body
+{
+    "waffleCardId": "61fbf239722eec55a1daae0f",
+    "text": "댓글내용"
+}
+
+// Response 201 ok
+{
+    "_id": String,
+    "userId": String,
+    "userName": String,
+    "waffleCardId": String,
+    "text": String,
+    "createdAt": String,
+    "updatedAt": String,
+    "id": String
+}
+```
+
+
+
+#### 댓글 수정하기
+
+```
+PUT/comments/:id
+// Request Header
+Authorization: bearer JWT토큰
+
+// Request Body
+{
+    "text": "댓글내용"
+}
+
+// Response 200 ok
+{
+    "_id": String,
+    "userId": String,
+    "userName": String,
+    "waffleCardId": String,
+    "text": String,
+    "createdAt": String,
+    "updatedAt": String,
+    "id": String
+}
+```
+
+
+
+#### 댓글 삭제하기
+
+```
+DELETE /comments/:id
+// Request Header
+Authorization: bearer JWT토큰
+
+// Response 204 ok
+```
+
+
+
+<br>
+
+
+
+### Like
+
+> 좋아요 생성 및 삭제에 따라 와플카드의 `likeCount` 값이 변경됩니다.
+
+#### 좋아요 생성
+
+```
+POST /likes
+// Request Header
+Authorization: bearer JWT토큰
+
+// Request Body
+{
+    "waffleCardId": "61fbf239722eec55a1daae0f"
+}
+
+// Response 201 ok
+{
+    "id": String,
+    "userId": String,
+    "waffleCardId": String
+}
+```
+
+
+
+#### 좋아요 삭제
+
+```json
+// Request Header
+Authorization: bearer JWT토큰
+
+// Request Body
+{
+    "waffleCardId": "61fbf239722eec55a1daae0f"
+}
+
+// Response 204 ok
+```
