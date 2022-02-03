@@ -1,5 +1,9 @@
 ## 🧇 와플카드 API 명세서
 
+**API 호스트**
+
+👉🏻 [`https://waffle-card.herokuapp.com`](https://waffle-card.herokuapp.com/)
+
 
 
 ## 스키마
