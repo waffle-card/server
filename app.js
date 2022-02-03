@@ -7,12 +7,19 @@ import authRouter from './routers/auth.js';
 import waffleCardRouter from './routers/waffleCard.js';
 import commentRouter from './routers/comment.js';
 import likeRouter from './routers/like.js';
+import { config } from './config.js';
+import { connectDB } from './database/database.js';
 
 const app = express();
 
+const corsOptions = {
+  origin: config.cors.allowedOrigin,
+  optionSuccess: 200,
+};
+
 app.use(express.json());
 app.use(helmet());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(morgan('tiny'));
 
 app.get('/', (req, res) => {
@@ -33,4 +40,7 @@ app.use((error, req, res) => {
   res.status(500).json({ message: 'Internal Server Error' });
 });
 
-app.listen(8080);
+connectDB().then(() => {
+  console.log(`Server is started... ${new Date()}`);
+  app.listen(config.port);
+});
