@@ -123,7 +123,7 @@
 
 ### Error Response
 
-```json
+```javascript
 {
 	message: String
 }
@@ -137,10 +137,11 @@
 
 ### Auth
 
-#### 회원가입
+#### 회원가입 
 
-```json
-POST /auth/signup
+> POST /auth/signup
+
+```javascript
 // Request Body
 {
   "email": String,
@@ -158,10 +159,11 @@ POST /auth/signup
 
 
 
-#### 로그인
+#### 로그인 
 
-```json
-POST /auth/login
+> POST /auth/login
+
+```javascript
 // Request Body
 {
   "email": String,
@@ -181,8 +183,9 @@ POST /auth/login
 
 #### JWT 유효성 검사
 
-```json
-GET /auth/me
+> GET /auth/me
+
+```javascript
 // Request Header
 Authorization: bearer JWT토큰
 
@@ -205,8 +208,9 @@ Authorization: bearer JWT토큰
 
 #### 와플카드 전체목록 불러오기
 
-```json
-GET /waffleCards
+> GET /waffleCards
+
+```javascript
 // Response 200 ok
 {
 	"id": String,
@@ -225,8 +229,9 @@ GET /waffleCards
 
 #### 나의 와플카드 불러오기
 
-```json
-GET /waffle-cards/my
+> GET /waffle-cards/my
+
+```javascript
 // Request Header
 Authorization: bearer JWT토큰
 
@@ -248,8 +253,9 @@ Authorization: bearer JWT토큰
 
 #### 좋아요한 와플카드 목록 불러오기
 
-```json
-GET /waffle-cards/like
+> GET /waffle-cards/like
+
+```javascript
 // Request Header
 Authorization: bearer JWT토큰
 
@@ -274,8 +280,9 @@ Authorization: bearer JWT토큰
 
 #### 와플카드 생성하기
 
-```json
-POST /waffle-cards
+> POST /waffle-cards
+
+```javascript
 // Request Header
 Authorization: bearer JWT토큰
 
@@ -304,8 +311,9 @@ Authorization: bearer JWT토큰
 
 #### 와플카드 수정하기
 
-```json
-PUT /waffle-cards/:id
+> PUT /waffle-cards/:id
+
+```javascript
 // Request Header
 Authorization: bearer JWT토큰
 
@@ -334,8 +342,9 @@ Authorization: bearer JWT토큰
 
 #### 와플카드 삭제하기
 
-```json
-DELETE /waffle-cards/:id
+> DELETE /waffle-cards/:id
+
+```javascript
 // Request Header
 Authorization: bearer JWT토큰
 
@@ -352,8 +361,9 @@ Authorization: bearer JWT토큰
 
 #### 와플카드에 속한 댓글 불러오기
 
-```json
-GET /comments?waffle-card-id={waffleCardId}
+> GET /comments?waffle-card-id={waffleCardId}
+
+```javascript
 // Request Params
 waffle-card-id: waffleCardId
 
@@ -379,8 +389,9 @@ waffle-card-id: waffleCardId
 
 #### 댓글 생성하기
 
-```json
-POST /comments
+> POST /comments
+
+```javascript
 // Request Header
 Authorization: bearer JWT토큰
 
@@ -407,8 +418,9 @@ Authorization: bearer JWT토큰
 
 #### 댓글 수정하기
 
-```json
-PUT/comments/:id
+> PUT/comments/:id
+
+```javascript
 // Request Header
 Authorization: bearer JWT토큰
 
@@ -434,8 +446,9 @@ Authorization: bearer JWT토큰
 
 #### 댓글 삭제하기
 
-```json
-DELETE /comments/:id
+> DELETE /comments/:id
+
+```javascript
 // Request Header
 Authorization: bearer JWT토큰
 
@@ -450,12 +463,13 @@ Authorization: bearer JWT토큰
 
 ### Like
 
-> 좋아요 생성 및 삭제에 따라 와플카드의 `likeCount` 값이 변경됩니다.
+좋아요 생성 및 삭제에 따라 와플카드의 `likeCount` 값이 변경됩니다.
 
 #### 좋아요 생성
 
-```json
-POST /likes
+> POST /likes
+
+```javascript
 // Request Header
 Authorization: bearer JWT토큰
 
@@ -476,7 +490,9 @@ Authorization: bearer JWT토큰
 
 #### 좋아요 삭제
 
-```json
+> DELETE /likes
+
+```javascript
 // Request Header
 Authorization: bearer JWT토큰
 
