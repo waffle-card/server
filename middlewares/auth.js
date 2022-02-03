@@ -6,7 +6,7 @@ const AUTH_ERROR = { message: '인증 오류' };
 
 export const isAuth = async (req, res, next) => {
   const authHeader = req.get('Authorization');
-  if (!(authHeader && authHeader.startWith('Bearer '))) {
+  if (!(authHeader && authHeader.startsWith('Bearer '))) {
     return res.statue(401).json(AUTH_ERROR);
   }
 

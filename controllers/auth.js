@@ -12,7 +12,7 @@ function createJwtToken(id) {
 
 export const signup = async (req, res) => {
   const { name, email, password } = req.body;
-  const found = await userRepository.findByEmail(name);
+  const found = await userRepository.findByEmail(email);
 
   if (found) {
     return res
@@ -28,5 +28,41 @@ export const signup = async (req, res) => {
   });
 
   const token = createJwtToken(userId);
-  res.status(201).json({ token, userId, name, email });
+  res.status(201).json({ token, id: userId, name, email });
+};
+
+export const login = async (req, res) => {
+  const { email, password } = req.body;
+  const user = await userRepository.findByEmail(email);
+
+  if (!user) {
+    return res.status(401).json({ message: '유효하지 않는 회원정보입니다.' });
+  }
+
+  const isValidPassword = await bcrypt.compare(password, user.password);
+
+  if (!isValidPassword) {
+    return res.status(401).json({ message: '유효하지 않는 회원정보입니다.' });
+  }
+
+  const token = createJwtToken(user.id);
+  res
+    .status(200)
+    .json({ token, id: user.id, name: user.name, email: user.email });
+};
+
+export const me = async (req, res) => {
+  const user = await userRepository.findById(req.userId);
+  console.log(req);
+  if (!user) {
+    return res.status(404).json({ message: '조냊하지 않는 유저입니다.' });
+  }
+  res
+    .status(200)
+    .json({
+      token: req.token,
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    });
 };
