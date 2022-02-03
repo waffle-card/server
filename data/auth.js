@@ -11,8 +11,8 @@ useVirtualId(userSchema);
 
 const User = Mongoose.model('User', userSchema);
 
-export async function findByUsername(username) {
-  return User.findOne({ username });
+export async function findByEmail(email) {
+  return User.findOne({ email });
 }
 
 export async function findById(id) {

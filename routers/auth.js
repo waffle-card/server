@@ -1,11 +1,10 @@
 import express from 'express';
 import 'express-async-errors';
+import * as authController from '../controllers/auth.js';
 
 const router = express.Router();
 
-router.post('/signup', (req, res) => {
-  res.json({ message: 'signup' });
-});
+router.post('/signup', authController.signup);
 
 router.post('/login', (req, res) => {
   res.json({ message: 'login' });
