@@ -3,7 +3,10 @@ import 'express-async-errors';
 import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
-import authRouter from './router/auth.js';
+import authRouter from './routers/auth.js';
+import waffleCardRouter from './routers/waffleCard.js';
+import commentRouter from './routers/comment.js';
+import likeRouter from './routers/like.js';
 
 const app = express();
 
@@ -17,6 +20,9 @@ app.get('/', (req, res) => {
 });
 
 app.use('/auth', authRouter);
+app.use('/waffle-cards', waffleCardRouter);
+app.use('/comments', commentRouter);
+app.use('/likes', likeRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not Found' });
