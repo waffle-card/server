@@ -8,7 +8,6 @@ export const getCommentsByWaffleCardId = async (req, res) => {
     return res.status(404).json({ message: '와플카드 id가 필요합니다.' });
   }
 
-  console.log(waffleCardId);
   const comments = await commentRepository.getAllByWaffleCardId(waffleCardId);
   res.status(200).json(comments);
 };

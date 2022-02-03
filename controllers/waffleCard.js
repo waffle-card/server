@@ -8,7 +8,7 @@ export const getWaffleCards = async (req, res) => {
   res.status(200).json(waffleCards);
 };
 
-export const getWaffleCardsByUserId = async (req, res) => {
+export const getWaffleCardByUserId = async (req, res) => {
   const userId = req.userId;
   const waffleCard = await waffleCardRepository.getByUserId(userId);
   res.status(200).json(waffleCard);
