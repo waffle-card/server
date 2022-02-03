@@ -6,7 +6,7 @@
 
 ### 유저
 
-```json
+```javascript
 {
 	id: String,
 	email: String,
@@ -24,7 +24,7 @@
 
 ### 와플카드
 
-```json
+```javascript
 {
 	id: String,
 	userId: String,
@@ -42,7 +42,7 @@
 
 ### 댓글
 
-```json
+```javascript
 {
 	id: String,
 	userId: String,
@@ -58,7 +58,7 @@
 
 ### 좋아요
 
-```json
+```javascript
 {
 	id: string,
 	userId: string,
@@ -139,7 +139,7 @@
 
 #### 회원가입
 
-```
+```json
 POST /auth/signup
 // Request Body
 {
@@ -156,9 +156,11 @@ POST /auth/signup
 }
 ```
 
+
+
 #### 로그인
 
-```
+```json
 POST /auth/login
 // Request Body
 {
@@ -175,9 +177,11 @@ POST /auth/login
 }
 ```
 
+
+
 #### JWT 유효성 검사
 
-```
+```json
 GET /auth/me
 // Request Header
 Authorization: bearer JWT토큰
@@ -201,7 +205,7 @@ Authorization: bearer JWT토큰
 
 #### 와플카드 전체목록 불러오기
 
-```
+```json
 GET /waffleCards
 // Response 200 ok
 {
@@ -221,7 +225,7 @@ GET /waffleCards
 
 #### 나의 와플카드 불러오기
 
-```
+```json
 GET /waffle-cards/my
 // Request Header
 Authorization: bearer JWT토큰
@@ -244,7 +248,7 @@ Authorization: bearer JWT토큰
 
 #### 좋아요한 와플카드 목록 불러오기
 
-```
+```json
 GET /waffle-cards/like
 // Request Header
 Authorization: bearer JWT토큰
@@ -270,7 +274,7 @@ Authorization: bearer JWT토큰
 
 #### 와플카드 생성하기
 
-```
+```json
 POST /waffle-cards
 // Request Header
 Authorization: bearer JWT토큰
@@ -300,7 +304,7 @@ Authorization: bearer JWT토큰
 
 #### 와플카드 수정하기
 
-```
+```json
 PUT /waffle-cards/:id
 // Request Header
 Authorization: bearer JWT토큰
@@ -330,7 +334,7 @@ Authorization: bearer JWT토큰
 
 #### 와플카드 삭제하기
 
-```
+```json
 DELETE /waffle-cards/:id
 // Request Header
 Authorization: bearer JWT토큰
@@ -348,7 +352,7 @@ Authorization: bearer JWT토큰
 
 #### 와플카드에 속한 댓글 불러오기
 
-```
+```json
 GET /comments?waffle-card-id={waffleCardId}
 // Request Params
 waffle-card-id: waffleCardId
@@ -371,9 +375,11 @@ waffle-card-id: waffleCardId
 
 
 
+
+
 #### 댓글 생성하기
 
-```
+```json
 POST /comments
 // Request Header
 Authorization: bearer JWT토큰
@@ -401,7 +407,7 @@ Authorization: bearer JWT토큰
 
 #### 댓글 수정하기
 
-```
+```json
 PUT/comments/:id
 // Request Header
 Authorization: bearer JWT토큰
@@ -428,7 +434,7 @@ Authorization: bearer JWT토큰
 
 #### 댓글 삭제하기
 
-```
+```json
 DELETE /comments/:id
 // Request Header
 Authorization: bearer JWT토큰
@@ -448,7 +454,7 @@ Authorization: bearer JWT토큰
 
 #### 좋아요 생성
 
-```
+```json
 POST /likes
 // Request Header
 Authorization: bearer JWT토큰
