@@ -8,7 +8,7 @@ const waffleCardSchema = new Mongoose.Schema(
     userName: { type: String, required: true },
     emoji: { type: String, required: true },
     color: { type: String, required: true },
-    hashTags: { type: Array, required: true },
+    hashTags: { type: [String], required: true },
     likeCount: { type: Number, required: true },
   },
   { timestamps: true, versionKey: false }
