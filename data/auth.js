@@ -12,7 +12,7 @@ const userSchema = new Mongoose.Schema(
 
 useVirtualId(userSchema);
 
-const User = Mongoose.model('User', userSchema);
+const User = Mongoose.model('user', userSchema);
 
 export const findByEmail = async email => {
   return User.findOne({ email });

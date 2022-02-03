@@ -16,10 +16,10 @@ const waffleCardSchema = new Mongoose.Schema(
 
 useVirtualId(waffleCardSchema);
 
-const WaffleCard = Mongoose.model('WaffleCard', waffleCardSchema);
+const WaffleCard = Mongoose.model('waffleCard', waffleCardSchema);
 
 export const getAll = async () => {
-  return WaffleCard.find().sort({ createdAt: 1 });
+  return WaffleCard.find().sort({ updatedAt: -1 });
 };
 
 export const getById = async id => {
@@ -27,7 +27,7 @@ export const getById = async id => {
 };
 
 export const getByUserId = async userId => {
-  return WaffleCard.findOne({ userId }).sort({ createdAt: 1 });
+  return WaffleCard.findOne({ userId });
 };
 
 // export const getAllByUserLiked = async userId => {};

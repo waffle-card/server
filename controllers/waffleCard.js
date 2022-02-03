@@ -1,5 +1,6 @@
 import * as waffleCardRepository from '../data/waffleCard.js';
 import * as userRepository from '../data/auth.js';
+import { isValidId } from './utils.js';
 
 export const getWaffleCards = async (req, res) => {
   const waffleCards = await waffleCardRepository.getAll();
@@ -37,7 +38,7 @@ export const updateWaffleCard = async (req, res) => {
 export const deleteWaffleCard = async (req, res, next) => {
   const waffleCardId = req.params.id;
 
-  if (!waffleCardId.match(/^[0-9a-fA-F]{24}$/)) {
+  if (!isValidId(waffleCardId)) {
     return res
       .status(404)
       .json({ message: `id ${waffleCardId}은(는) 유효한 id가 아닙니다.` });

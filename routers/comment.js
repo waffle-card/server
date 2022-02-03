@@ -1,13 +1,13 @@
 import express from 'express';
 import 'express-async-errors';
+import * as commentController from '../controllers/comment.js';
+import { isAuth } from '../middlewares/auth.js';
 
 const router = express.Router();
 
 // GET /comments
 // GET /comments?waffleCardId=:waffleCardId
-router.get('/', (req, res) => {
-  res.json({ message: 'get comment by waffleCardId' });
-});
+router.get('/', commentController.getCommentsByWaffleCardId);
 
 // GET /comments/:id
 router.get('/:id', (req, res) => {
@@ -15,18 +15,12 @@ router.get('/:id', (req, res) => {
 });
 
 // POST /comments
-router.post('/', (req, res) => {
-  res.json({ message: 'create comment' });
-});
+router.post('/', isAuth, commentController.createComment);
 
 // PUT /comments/:id
-router.put('/:id', (req, res) => {
-  res.json({ message: 'update comment by id' });
-});
+router.put('/:id', isAuth, commentController.updateComment);
 
 // DELETE /comments/:id
-router.delete('/:id', (req, res) => {
-  res.json({ message: 'delete comment by id' });
-});
+router.delete('/:id', isAuth, commentController.deleteComment);
 
 export default router;
