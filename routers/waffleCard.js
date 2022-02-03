@@ -10,9 +10,7 @@ const router = express.Router();
 router.get('/', waffleCardController.getWaffleCards);
 
 // GET /waffleCards/my
-router.get('/my', isAuth, (req, res) => {
-  res.json({ message: 'get my waffleCard' });
-});
+router.get('/my', isAuth, waffleCardController.getWaffleCardsByUserId);
 
 // GET /waffleCards/like
 router.get('/like', isAuth, (req, res) => {
@@ -23,13 +21,9 @@ router.get('/like', isAuth, (req, res) => {
 router.post('/', isAuth, waffleCardController.createWaffleCard);
 
 // PUT /waffleCards/:id
-router.put('/:id', isAuth, (req, res) => {
-  res.json({ message: 'update waffleCard by id' });
-});
+router.put('/:id', isAuth, waffleCardController.updateWaffleCard);
 
 // DELETE /waffleCards/:id
-router.delete('/:id', isAuth, (req, res) => {
-  res.json({ message: 'delete waffleCard by id' });
-});
+router.delete('/:id', isAuth, waffleCardController.deleteWaffleCard);
 
 export default router;

@@ -22,8 +22,12 @@ export const getAll = async () => {
   return WaffleCard.find().sort({ createdAt: 1 });
 };
 
-export const getAllByUserId = async userId => {
-  return WaffleCard.find({ userId }).sort({ createdAt: 1 });
+export const getById = async id => {
+  return WaffleCard.findById(id);
+};
+
+export const getByUserId = async userId => {
+  return WaffleCard.findOne({ userId }).sort({ createdAt: 1 });
 };
 
 // export const getAllByUserLiked = async userId => {};
@@ -47,7 +51,7 @@ export const update = async (id, waffleCardInfo) => {
   return WaffleCard.findByIdAndUpdate(
     id,
     { emoji, color, hashTags },
-    { returnOriginal: true }
+    { returnOriginal: false }
   );
 };
 

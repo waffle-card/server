@@ -54,7 +54,7 @@ export const login = async (req, res) => {
 export const me = async (req, res) => {
   const user = await userRepository.findById(req.userId);
   if (!user) {
-    return res.status(404).json({ message: '조냊하지 않는 유저입니다.' });
+    return res.status(404).json({ message: '존재하지 않는 유저입니다.' });
   }
   res.status(200).json({
     token: req.token,

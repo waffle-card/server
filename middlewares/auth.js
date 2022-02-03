@@ -2,12 +2,12 @@ import jwt from 'jsonwebtoken';
 import { config } from '../config.js';
 import * as userRepository from '../data/auth.js';
 
-const AUTH_ERROR = { message: '인증 오류' };
+const AUTH_ERROR = { message: '회원 인증 오류' };
 
 export const isAuth = async (req, res, next) => {
   const authHeader = req.get('Authorization');
   if (!(authHeader && authHeader.startsWith('Bearer '))) {
-    return res.statue(401).json(AUTH_ERROR);
+    return res.status(401).json(AUTH_ERROR);
   }
 
   const token = authHeader.split(' ')[1];
