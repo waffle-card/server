@@ -34,6 +34,7 @@ export const getByUserId = async userId => {
 
 export const create = async (userId, waffleCardInfo) => {
   const { emoji, color, hashTags } = waffleCardInfo;
+
   return userRepository.findById(userId).then(user =>
     new WaffleCard({
       userId: user.id,
@@ -48,6 +49,7 @@ export const create = async (userId, waffleCardInfo) => {
 
 export const update = async (id, waffleCardInfo) => {
   const { emoji, color, hashTags } = waffleCardInfo;
+
   return WaffleCard.findByIdAndUpdate(
     id,
     { emoji, color, hashTags },

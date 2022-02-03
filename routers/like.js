@@ -1,14 +1,12 @@
 import express from 'express';
 import 'express-async-errors';
+import * as likeController from '../controllers/like.js';
+import { isAuth } from '../middlewares/auth.js';
 
 const router = express.Router();
 
-router.post('/', (req, res) => {
-  res.json({ message: 'create like' });
-});
+router.post('/', isAuth, likeController.createLike);
 
-router.delete('/', (req, res) => {
-  res.json({ message: 'delete like' });
-});
+router.delete('/', isAuth, likeController.deleteLike);
 
 export default router;

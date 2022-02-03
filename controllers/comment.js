@@ -1,6 +1,5 @@
 import * as commentRepository from '../data/comment.js';
 import * as waffleCardRepository from '../data/waffleCard.js';
-import * as userRepository from '../data/auth.js';
 import { isValidId } from './utils.js';
 
 export const getCommentsByWaffleCardId = async (req, res) => {
