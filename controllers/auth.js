@@ -28,5 +28,5 @@ export async function signup(req, res) {
   });
 
   const token = createJwtToken(userId);
-  res.status(201).json({ token, userId, name });
+  res.status(201).json({ token, userId, name, email });
 }
