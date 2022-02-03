@@ -35,13 +35,19 @@ export const createWaffleCard = async (req, res) => {
 
 export const updateWaffleCard = async (req, res) => {
   const waffleCardId = req.params.id;
+  const waffleCard = await waffleCardRepository.getById(waffleCardId);
+
+  if (waffleCard.userId !== req.userId) {
+    return res.status(403).json({ message: `삭제 권한이 없습니다.` });
+  }
+
   const { emoji, color, hashTags } = req.body;
-  const waffleCard = await waffleCardRepository.update(waffleCardId, {
+  const updatedWaffleCard = await waffleCardRepository.update(waffleCardId, {
     emoji,
     color,
     hashTags,
   });
-  res.status(200).json(waffleCard);
+  res.status(200).json(updatedWaffleCard);
 };
 
 export const deleteWaffleCard = async (req, res, next) => {
