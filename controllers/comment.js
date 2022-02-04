@@ -12,6 +12,17 @@ export const getCommentsByWaffleCardId = async (req, res) => {
   res.status(200).json(comments);
 };
 
+export const getCommentById = async (req, res) => {
+  const id = req.params.id;
+
+  if (!isValidId(id)) {
+    return res.status(404).json({ message: `유효한 id 형식이 아닙니다.` });
+  }
+
+  const comment = await commentRepository.getById(id);
+  res.status(200).json(comment);
+};
+
 export const createComment = async (req, res) => {
   const { waffleCardId, text } = req.body;
 

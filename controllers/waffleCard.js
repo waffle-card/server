@@ -8,6 +8,15 @@ export const getWaffleCards = async (req, res) => {
   res.status(200).json(waffleCards);
 };
 
+export const getWaffleCardById = async (req, res) => {
+  const waffleCardId = req.params.id;
+  if (!isValidId(waffleCardId)) {
+    return res.status(404).json({ message: `유효한 id 형식이 아닙니다.` });
+  }
+  const waffleCard = await waffleCardRepository.getById(waffleCardId);
+  res.status(200).json(waffleCard);
+};
+
 export const getWaffleCardByUserId = async (req, res) => {
   const userId = req.userId;
   const waffleCard = await waffleCardRepository.getByUserId(userId);

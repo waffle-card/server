@@ -7,6 +7,8 @@ const router = express.Router();
 
 router.get('/', waffleCardController.getWaffleCards);
 
+router.get('/:id', waffleCardController.getWaffleCardById);
+
 router.get('/my', isAuth, waffleCardController.getWaffleCardByUserId);
 
 router.get('/like', isAuth, waffleCardController.getWaffleCardsByUserLiked);
