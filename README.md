@@ -97,6 +97,7 @@
 #### WaffleCard
 
 - 와플카드 전체목록 불러오기 : `GET/waffleCards`
+- 특정 id의 와플카드 불러오기 : `GET/waffleCards/:id`
 - 나의 와플카드 불러오기 : 🔐 `GET/waffle-cards/my`
 - 좋아요한 와플카드 목록 불러오기: 🔐 `GET/waffle-cards/like`
 - 와플카드 생성하기 : 🔐 `POST/waffle-cards`
@@ -108,6 +109,7 @@
 #### Comment
 
 - 와플카드에 속한 댓글 불러오기 : `GET/comments?waffle-card-id={waffleCardId}`
+- 특정 id의 댓글 불러오기 : `GET/waffleCards/:id`
 - 댓글 생성하기 : 🔐 `POST/comments`
 - 댓글 수정하기 : 🔐 `PUT/comments/:id`
 - 댓글 삭제하기 : 🔐 `DELETE/comments/:id`
@@ -150,16 +152,16 @@
 ```javascript
 // Request Body
 {
-  "email": String,
-  "password": String
+	"email": String,
+	"password": String
 }
 
 // Response 201 ok
 {
-    "token": String,
-    "id": String,
-    "name": String,
-    "email": String
+	"token": String,
+	"id": String,
+	"name": String,
+	"email": String
 }
 ```
 
@@ -172,16 +174,16 @@
 ```javascript
 // Request Body
 {
-  "email": String,
-  "password": String
+	"email": String,
+	"password": String
 }
 
 // Response 200 ok
 {
-    "token": String,
-    "id": String,
-    "name": String,
-    "email": String
+	"token": String,
+	"id": String,
+	"name": String,
+	"email": String
 }
 ```
 
@@ -197,10 +199,10 @@ Authorization: bearer JWT토큰
 
 // Response 200 ok
 {
-    "token": String,
-    "id": String,
-    "name": String,
-    "email": String
+	"token": String,
+	"id": String,
+	"name": String,
+	"email": String
 }
 ```
 
@@ -218,8 +220,8 @@ Authorization: bearer JWT토큰
 
 ```javascript
 // Response 200 ok
-{
-	"id": String,
+{	
+  "id": String,
 	"userId": String,
 	"userName": String,
 	"emoji": String,
@@ -278,7 +280,7 @@ Authorization: bearer JWT토큰
 		"createdAt": String,
 		"updatedAt": String,
 	},
-	... // 와플카드 객체를 담은 배열 반환
+  ... // 와플카드 객체를 담은 배열 반환
 ]
 ```
 
@@ -294,14 +296,14 @@ Authorization: bearer JWT토큰
 
 // Request Body
 {
-    "emoji": "👽",
-    "color": "#123456",
-    "hashTags": ["안녕", "클레오파트라", "세상에서", "제일가는", "포테이토칩"]
+	"emoji": "👽",
+	"color": "#123456",
+	"hashTags": ["안녕", "클레오파트라", "세상에서", "제일가는", "포테이토칩"]
 }
 
 // Response 201 ok
 {
-	"id": String,
+  "id": String,
 	"userId": String,
 	"userName": String,
 	"emoji": String,
@@ -325,14 +327,14 @@ Authorization: bearer JWT토큰
 
 // Request Body
 {
-    "emoji": "👽",
-    "color": "#123456",
-    "hashTags": ["안녕", "클레오파트라", "세상에서", "제일가는", "포테이토칩"]
+	"emoji": "👽",
+	"color": "#123456",
+	"hashTags": ["안녕", "클레오파트라", "세상에서", "제일가는", "포테이토칩"]
 }
 
 // Response 200 ok
 {
-	"id": String,
+  "id": String,
 	"userId": String,
 	"userName": String,
 	"emoji": String,
@@ -369,24 +371,46 @@ Authorization: bearer JWT토큰
 
 > GET /comments?waffle-card-id={waffleCardId}
 
-```javascript
+```js
 // Request Params
 waffle-card-id: waffleCardId
 
 // Response 200 ok
 [
-	{
-	    "_id": String,
-	    "userId": String,
-	    "userName": String,
-	    "waffleCardId": String,
-	    "text": String,
-	    "createdAt": String,
-	    "updatedAt": String,
-	    "id": String
-	},
-	... // 댓글이 담긴 배열 반환
+  {
+    "_id": String,
+    "userId": String,
+    "userName": String,
+    "waffleCardId": String,
+    "text": String,
+    "createdAt": String,
+    "updatedAt": String,
+    "id": String
+  },
+  ... // 댓글이 담긴 배열 반환
 ]
+```
+
+
+
+
+
+#### 특정 id로 댓글 불러오기
+
+> GET /comments/:id
+
+```js
+// Response 200 ok
+{
+  "_id": String,
+	"userId": String,
+	"userName": String,
+	"waffleCardId": String,
+	"text": String,
+	"createdAt": String,
+	"updatedAt": String,
+	"id": String
+}
 ```
 
 
@@ -403,20 +427,20 @@ Authorization: bearer JWT토큰
 
 // Request Body
 {
-    "waffleCardId": "61fbf239722eec55a1daae0f",
-    "text": "댓글내용"
+  "waffleCardId": "61fbf239722eec55a1daae0f",
+	"text": "댓글내용"
 }
 
 // Response 201 ok
 {
-    "_id": String,
-    "userId": String,
-    "userName": String,
-    "waffleCardId": String,
-    "text": String,
-    "createdAt": String,
-    "updatedAt": String,
-    "id": String
+  "_id": String,
+	"userId": String,
+	"userName": String,
+	"waffleCardId": String,
+	"text": String,
+	"createdAt": String,
+	"updatedAt": String,
+	"id": String
 }
 ```
 
@@ -432,19 +456,19 @@ Authorization: bearer JWT토큰
 
 // Request Body
 {
-    "text": "댓글내용"
+	"text": "댓글내용"
 }
 
 // Response 200 ok
 {
-    "_id": String,
-    "userId": String,
-    "userName": String,
-    "waffleCardId": String,
-    "text": String,
-    "createdAt": String,
-    "updatedAt": String,
-    "id": String
+	"_id": String,
+	"userId": String,
+	"userName": String,
+	"waffleCardId": String,
+	"text": String,
+	"createdAt": String,
+	"updatedAt": String,
+	"id": String
 }
 ```
 
@@ -481,14 +505,14 @@ Authorization: bearer JWT토큰
 
 // Request Body
 {
-    "waffleCardId": "61fbf239722eec55a1daae0f"
+	"waffleCardId": "61fbf239722eec55a1daae0f"
 }
 
 // Response 201 ok
 {
-    "id": String,
-    "userId": String,
-    "waffleCardId": String
+	"id": String,
+	"userId": String,
+	"waffleCardId": String
 }
 ```
 
@@ -504,7 +528,7 @@ Authorization: bearer JWT토큰
 
 // Request Body
 {
-    "waffleCardId": "61fbf239722eec55a1daae0f"
+	"waffleCardId": "61fbf239722eec55a1daae0f"
 }
 
 // Response 204 ok
