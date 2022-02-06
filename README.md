@@ -213,6 +213,8 @@ Authorization: bearer JWT토큰
 #### 회원정보 수정
 
 > PUT /auth/update
+>
+> 💡 `name` 혹은 `password` 중 최소 1개의 필드가 존재해야합니다.
 
 ```js
 // Request Header
@@ -220,8 +222,8 @@ Authorization: bearer JWT토큰
 
 // Request Body
 {
-  "name": String,
-	"password": String
+  "name": String(optional),
+	"password": String(optional)
 }
 
 // Response 200 ok
@@ -232,8 +234,6 @@ Authorization: bearer JWT토큰
 	"email": String
 }
 ```
-
-
 
 
 
