@@ -63,3 +63,27 @@ export const me = async (req, res) => {
     email: user.email,
   });
 };
+
+export const updateUser = async (req, res) => {
+  const user = await userRepository.findById(req.userId);
+  if (!user) {
+    return res.status(404).json({ message: '존재하지 않는 유저입니다.' });
+  }
+
+  const { name, password } = req.body;
+
+  const hashed = await bcrypt.hash(password, config.bcrypt.saltRounds);
+  const updatedUser = await userRepository.updateUser(user.id, {
+    name,
+    password: hashed,
+  });
+
+  const token = createJwtToken(updatedUser.id);
+
+  res.status(200).json({
+    token,
+    id: updatedUser.id,
+    name: updatedUser.name,
+    email: updatedUser.email,
+  });
+};

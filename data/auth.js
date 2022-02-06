@@ -25,3 +25,13 @@ export const findById = async id => {
 export const createUser = async user => {
   return new User(user).save().then(data => data.id);
 };
+
+export const updateUser = async (id, user) => {
+  const { name, password } = user;
+
+  return User.findByIdAndUpdate(
+    id,
+    { name, password },
+    { returnOriginal: false }
+  );
+};

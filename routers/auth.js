@@ -12,4 +12,6 @@ router.post('/login', validateLogin, authController.login);
 
 router.get('/me', isAuth, authController.me);
 
+router.put('/update', isAuth, authController.updateUser);
+
 export default router;
