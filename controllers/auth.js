@@ -71,8 +71,14 @@ export const updateUser = async (req, res) => {
   }
 
   const { name, password } = req.body;
+  if (!name && !password) {
+    return res.status(400).json({ message: '잘못된 요청입니다.' });
+  }
 
-  const hashed = await bcrypt.hash(password, config.bcrypt.saltRounds);
+  const hashed = password
+    ? await bcrypt.hash(password, config.bcrypt.saltRounds)
+    : undefined;
+
   const updatedUser = await userRepository.updateUser(user.id, {
     name,
     password: hashed,
