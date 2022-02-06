@@ -89,8 +89,9 @@
 #### Auth
 
 - 회원가입 : `POST/auth/signup`
-- 로그인: `POST/auth/login`
-- 토큰유효검사: 🔐 `GET/auth/me`
+- 로그인 : `POST/auth/login`
+- 토큰 유효성 검사 : 🔐 `GET/auth/me`
+- 회원정보 수정 : 🔐 `GET/auth/update`
 
 
 
@@ -152,6 +153,7 @@
 ```javascript
 // Request Body
 {
+  "name": String,
 	"email": String,
 	"password": String
 }
@@ -205,6 +207,33 @@ Authorization: bearer JWT토큰
 	"email": String
 }
 ```
+
+
+
+#### 회원정보 수정
+
+> PUT /auth/update
+
+```js
+// Request Header
+Authorization: bearer JWT토큰
+
+// Request Body
+{
+  "name": String,
+	"password": String
+}
+
+// Response 200 ok
+{
+  "token": String,
+	"id": String,
+	"name": String,
+	"email": String
+}
+```
+
+
 
 
 
