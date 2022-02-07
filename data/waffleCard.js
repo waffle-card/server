@@ -31,10 +31,8 @@ export const getAllByIds = async ids => {
 };
 
 export const getByUserId = async userId => {
-  return WaffleCard.findOne({ userId });
+  return WaffleCard.find({ userId });
 };
-
-// export const getAllByUserLiked = async userId => {};
 
 export const create = async (userId, waffleCardInfo) => {
   const { emoji, color, hashTags } = waffleCardInfo;
