@@ -28,6 +28,7 @@ export const createLike = async (req, res) => {
 
   const like = await likeRepository.create(userId, waffleCardId);
   await waffleCardRepository.countUpLike(waffleCardId);
+  await waffleCardRepository.addLikeUserId(waffleCardId, userId);
   res.status(201).json({ id: like.id, userId, waffleCardId });
 };
 
@@ -41,8 +42,12 @@ export const deleteLike = async (req, res) => {
     });
   }
 
-  const likes = await likeRepository.getAllByUserId(userId);
-  if (!likes.map(like => like.userId).includes(userId)) {
+  const like = await likeRepository.getByUserIdAndWaffleCardId(
+    userId,
+    waffleCardId
+  );
+  console.log(like);
+  if (!like) {
     return res.status(400).json({
       message: '좋아요를 누른 와플 카드가 아닙니다.',
     });
@@ -54,7 +59,8 @@ export const deleteLike = async (req, res) => {
     return res.status(404).json({ message: '존재하지 않는 와플카드입니다.' });
   }
 
-  await likeRepository.remove(userId, waffleCardId);
+  await likeRepository.remove(like.id);
   await waffleCardRepository.countDownLike(waffleCardId);
+  await waffleCardRepository.DeleteLikeUserId(waffleCardId, userId);
   res.sendStatus(204);
 };

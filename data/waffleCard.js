@@ -10,6 +10,7 @@ const waffleCardSchema = new Mongoose.Schema(
     color: { type: String, required: true },
     hashTags: { type: [String], required: true },
     likeCount: { type: Number, required: true },
+    likeUserIds: { type: [String], required: true },
   },
   { timestamps: true, versionKey: false }
 );
@@ -79,6 +80,28 @@ export const countDownLike = async id => {
   return WaffleCard.findByIdAndUpdate(
     id,
     { likeCount: --waffleCard.likeCount },
+    { returnOriginal: false }
+  );
+};
+
+export const addLikeUserId = async (id, userId) => {
+  const waffleCard = await WaffleCard.findById(id);
+  const newLikeUserIds = [...new Set([...waffleCard.likeUserIds, userId])];
+
+  return WaffleCard.findByIdAndUpdate(
+    id,
+    { likeUserIds: newLikeUserIds },
+    { returnOriginal: false }
+  );
+};
+
+export const DeleteLikeUserId = async (id, userId) => {
+  const waffleCard = await WaffleCard.findById(id);
+  const newLikeUserIds = waffleCard.likeUserIds.filter(id => id !== userId);
+
+  return WaffleCard.findByIdAndUpdate(
+    id,
+    { likeUserIds: newLikeUserIds },
     { returnOriginal: false }
   );
 };
