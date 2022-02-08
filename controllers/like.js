@@ -33,7 +33,7 @@ export const createLike = async (req, res) => {
 };
 
 export const deleteLike = async (req, res) => {
-  const { waffleCardId } = req.body;
+  const waffleCardId = req.params.id;
   const userId = req.userId;
 
   if (!isValidId(waffleCardId)) {
