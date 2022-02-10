@@ -15,9 +15,10 @@ useVirtualId(commentSchema);
 const Comment = Mongoose.model('comment', commentSchema);
 
 export const getAllByWaffleCardId = async waffleCardId => {
-  return Comment.find({ waffleCardId })
-    .populate({ path: 'user', select: 'name' })
-    .sort({ updatedAt: -1 });
+  return Comment.find({ waffleCardId }).populate({
+    path: 'user',
+    select: 'name',
+  });
 };
 
 export const getById = async id => {
