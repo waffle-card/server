@@ -46,7 +46,9 @@ export const create = async (userId, waffleCardInfo) => {
     color,
     hashTags,
     likeCount: 0,
-  }).save();
+  })
+    .save()
+    .then(waffleCard => waffleCard.populate({ path: 'user', select: 'name' }));
 };
 
 export const update = async (id, waffleCardInfo) => {
@@ -56,7 +58,7 @@ export const update = async (id, waffleCardInfo) => {
     id,
     { emoji, color, hashTags },
     { returnOriginal: false }
-  );
+  ).then(waffleCard => waffleCard.populate({ path: 'user', select: 'name' }));
 };
 
 export const remove = async id => {

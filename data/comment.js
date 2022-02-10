@@ -33,11 +33,17 @@ export const create = async (userId, waffleCardId, text) => {
     user: userId,
     waffleCardId,
     text,
-  }).save();
+  })
+    .save()
+    .then(comment => comment.populate({ path: 'user', select: 'name' }));
 };
 
 export const update = async (id, text) => {
-  return Comment.findByIdAndUpdate(id, { text }, { returnOriginal: false });
+  return Comment.findByIdAndUpdate(
+    id,
+    { text },
+    { returnOriginal: false }
+  ).then(comment => comment.populate({ path: 'user', select: 'name' }));
 };
 
 export const remove = async id => {
