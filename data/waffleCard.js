@@ -1,11 +1,9 @@
 import Mongoose from 'mongoose';
 import { useVirtualId } from '../database/database.js';
-import * as userRepository from './auth.js';
 
 const waffleCardSchema = new Mongoose.Schema(
   {
-    userId: { type: String, required: true },
-    userName: { type: String, required: true },
+    user: { type: Mongoose.Schema.Types.ObjectId, ref: 'user', required: true },
     emoji: { type: String, required: true },
     color: { type: String, required: true },
     hashTags: { type: [String], required: true },
@@ -18,34 +16,37 @@ useVirtualId(waffleCardSchema);
 const WaffleCard = Mongoose.model('waffleCard', waffleCardSchema);
 
 export const getAll = async () => {
-  return WaffleCard.find().sort({ updatedAt: -1 });
+  return WaffleCard.find()
+    .populate({ path: 'user', select: 'name' })
+    .sort({ updatedAt: -1 });
 };
 
 export const getById = async id => {
-  return WaffleCard.findById(id);
+  return WaffleCard.findById(id).populate({ path: 'user', select: 'name' });
 };
 
 export const getAllByIds = async ids => {
-  return WaffleCard.find({ _id: { $in: ids } }).sort({ updatedAt: -1 });
+  return WaffleCard.find({ _id: { $in: ids } })
+    .populate({ path: 'user', select: 'name' })
+    .sort({ updatedAt: -1 });
 };
 
 export const getAllByUserId = async userId => {
-  return WaffleCard.find({ userId }).sort({ updatedAt: -1 });
+  return WaffleCard.find({ userId })
+    .populate({ path: 'user', select: 'name' })
+    .sort({ updatedAt: -1 });
 };
 
 export const create = async (userId, waffleCardInfo) => {
   const { emoji, color, hashTags } = waffleCardInfo;
 
-  return userRepository.findById(userId).then(user =>
-    new WaffleCard({
-      userId: user.id,
-      userName: user.name,
-      emoji,
-      color,
-      hashTags,
-      likeCount: 0,
-    }).save()
-  );
+  return new WaffleCard({
+    user: userId,
+    emoji,
+    color,
+    hashTags,
+    likeCount: 0,
+  }).save();
 };
 
 export const update = async (id, waffleCardInfo) => {

@@ -4,14 +4,12 @@ import * as likeRepository from '../data/like.js';
 import { isValidId } from './utils.js';
 
 const createWaffleCardInfo = async waffleCard => {
-  const { id, userId, userName, emoji, color, hashTags, createdAt, updatedAt } =
-    waffleCard;
+  const { id, user, emoji, color, hashTags, createdAt, updatedAt } = waffleCard;
   const likes = await likeRepository.getAllByWaffleCardId(waffleCard.id);
   const likeUserIds = likes.map(like => like.userId);
   return {
     id,
-    userId,
-    userName,
+    user,
     emoji,
     color,
     hashTags,
@@ -88,8 +86,8 @@ export const updateWaffleCard = async (req, res) => {
     return res.status(404).json({ message: `와플카드가 존재하지 않습니다.` });
   }
 
-  if (waffleCard.userId !== req.userId) {
-    return res.status(403).json({ message: `삭제 권한이 없습니다.` });
+  if (waffleCard.user.id !== req.userId) {
+    return res.status(403).json({ message: `수정 권한이 없습니다.` });
   }
 
   const { emoji, color, hashTags } = req.body;
@@ -119,7 +117,7 @@ export const deleteWaffleCard = async (req, res, next) => {
       .json({ message: `id ${waffleCardId}의 와플카드는 존재하지 않습니다.` });
   }
 
-  if (waffleCard.userId !== req.userId) {
+  if (waffleCard.user.id !== req.userId) {
     return res.status(403).json({ message: `삭제 권한이 없습니다.` });
   }
 
