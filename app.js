@@ -23,7 +23,7 @@ app.use(cors(corsOptions));
 app.use(morgan('tiny'));
 
 app.get('/', (req, res) => {
-  res.status(200).json({ message: 'welcome to waffleCard!' });
+  res.status(200).json({ author: '정윤호', message: 'Welcome to waffleCard!' });
 });
 
 app.use('/auth', authRouter);
