@@ -33,8 +33,10 @@
 ```javascript
 {
 	id: String,
-	userId: String,
-	userName: String,
+	user: {
+    id: String,
+    name: String,
+  },
 	emoji: String,
 	color: String,
 	hashTags: String[],
@@ -251,16 +253,18 @@ Authorization: bearer JWT토큰
 
 ```javascript
 // Response 200 ok
-{	
-  "id": String,
-	"userId": String,
-	"userName": String,
-	"emoji": String,
-	"color": String,
-	"hashTags": String[],
-	"likeUserIds": String[],
-	"createdAt": String,
-	"updatedAt": String,
+{
+	id: String,
+	user: {
+    id: String,
+    name: String,
+  },
+	emoji: String,
+	color: String,
+	hashTags: String[],
+	likeUserIds: String[],
+	createdAt: String,
+	updatedAt: String,
 }
 ```
 
@@ -276,15 +280,17 @@ Authorization: bearer JWT토큰
 
 // Response 200 ok
 {
-	"id": String,
-	"userId": String,
-	"userName": String,
-	"emoji": String,
-	"color": String,
-	"hashTags": String[],
-	"likeUserIds": String[],
-	"createdAt": String,
-	"updatedAt": String,
+	id: String,
+	user: {
+    id: String,
+    name: String,
+  },
+	emoji: String,
+	color: String,
+	hashTags: String[],
+	likeUserIds: String[],
+	createdAt: String,
+	updatedAt: String,
 }
 ```
 
@@ -301,16 +307,18 @@ Authorization: bearer JWT토큰
 // Response 200 ok
 [
 	{
-		"id": String,
-		"userId": String,
-		"userName": String,
-		"emoji": String,
-		"color": String,
-		"hashTags": String[],
-		"likeUserIds": String[],
-		"createdAt": String,
-		"updatedAt": String,
-	},
+    id: String,
+    user: {
+      id: String,
+      name: String,
+    },
+    emoji: String,
+    color: String,
+    hashTags: String[],
+    likeUserIds: String[],
+    createdAt: String,
+    updatedAt: String,
+  },
   ... // 와플카드 객체를 담은 배열 반환
 ]
 ```
@@ -334,15 +342,14 @@ Authorization: bearer JWT토큰
 
 // Response 201 ok
 {
-  "id": String,
-	"userId": String,
-	"userName": String,
-	"emoji": String,
-	"color": String,
-	"hashTags": String[],
-	"likeUserIds": String[],
-	"createdAt": String,
-	"updatedAt": String,
+	id: String,
+	user: String, // 작성자 ID
+	emoji: String,
+	color: String,
+	hashTags: String[],
+	likeUserIds: String[],
+	createdAt: String,
+	updatedAt: String,
 }
 ```
 
@@ -365,15 +372,14 @@ Authorization: bearer JWT토큰
 
 // Response 200 ok
 {
-  "id": String,
-	"userId": String,
-	"userName": String,
-	"emoji": String,
-	"color": String,
-	"hashTags": String[],
-	"likeUserIds": String[],
-	"createdAt": String,
-	"updatedAt": String,
+	id: String,
+	user: String, // 작성자 ID
+	emoji: String,
+	color: String,
+	hashTags: String[],
+	likeUserIds: String[],
+	createdAt: String,
+	updatedAt: String,
 }
 ```
 
@@ -539,9 +545,9 @@ Authorization: bearer JWT토큰
 
 // Response 201 ok
 {
-	"id": String,
-	"userId": String,
-	"waffleCardId": String
+	id: String,
+	userId: String,
+	waffleCardId: String
 }
 ```
 
@@ -557,7 +563,7 @@ Authorization: bearer JWT토큰
 
 // Request Body
 {
-	"waffleCardId": "61fbf239722eec55a1daae0f"
+	waffleCardId: "61fbf239722eec55a1daae0f"
 }
 
 // Response 204 ok
