@@ -38,7 +38,7 @@
 	emoji: String,
 	color: String,
 	hashTags: String[],
-	likeCount: Sumber,
+	likeUserIds: String[],
 	createdAt: String,
 	updatedAt: String,
 }
@@ -256,7 +256,7 @@ Authorization: bearer JWT토큰
 	"emoji": String,
 	"color": String,
 	"hashTags": String[],
-	"likeCount": Number,
+	"likeUserIds": String[],
 	"createdAt": String,
 	"updatedAt": String,
 }
@@ -280,7 +280,7 @@ Authorization: bearer JWT토큰
 	"emoji": String,
 	"color": String,
 	"hashTags": String[],
-	"likeCount": Number,
+	"likeUserIds": String[],
 	"createdAt": String,
 	"updatedAt": String,
 }
@@ -305,7 +305,7 @@ Authorization: bearer JWT토큰
 		"emoji": String,
 		"color": String,
 		"hashTags": String[],
-		"likeCount": Number,
+		"likeUserIds": String[],
 		"createdAt": String,
 		"updatedAt": String,
 	},
@@ -338,7 +338,7 @@ Authorization: bearer JWT토큰
 	"emoji": String,
 	"color": String,
 	"hashTags": String[],
-	"likeCount": Number,
+	"likeUserIds": String[],
 	"createdAt": String,
 	"updatedAt": String,
 }
@@ -369,7 +369,7 @@ Authorization: bearer JWT토큰
 	"emoji": String,
 	"color": String,
 	"hashTags": String[],
-	"likeCount": Number,
+	"likeUserIds": String[],
 	"createdAt": String,
 	"updatedAt": String,
 }

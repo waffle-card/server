@@ -47,7 +47,7 @@ export const getWaffleCardById = async (req, res) => {
     return res.status(404).json({ message: `와플카드가 존재하지 않습니다.` });
   }
 
-  const waffleCardInfo = createWaffleCardInfo(waffleCard);
+  const waffleCardInfo = await createWaffleCardInfo(waffleCard);
   res.status(200).json(waffleCardInfo);
 };
 
@@ -75,7 +75,9 @@ export const createWaffleCard = async (req, res) => {
     color,
     hashTags,
   });
-  res.status(201).json(waffleCard);
+
+  const waffleCardInfo = await createWaffleCardInfo(waffleCard);
+  res.status(200).json(waffleCardInfo);
 };
 
 export const updateWaffleCard = async (req, res) => {
@@ -96,7 +98,8 @@ export const updateWaffleCard = async (req, res) => {
     color,
     hashTags,
   });
-  res.status(200).json(updatedWaffleCard);
+  const waffleCardInfo = await createWaffleCardInfo(updatedWaffleCard);
+  res.status(200).json(waffleCardInfo);
 };
 
 export const deleteWaffleCard = async (req, res, next) => {
