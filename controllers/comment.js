@@ -62,8 +62,8 @@ export const updateComment = async (req, res) => {
     return res.status(404).json({ message: '댓글이 존재하지 않습니다.' });
   }
 
-  if (comment.userId !== req.userId) {
-    return res.status(403).json({ message: '삭제 권한이 없습니다.' });
+  if (comment.user.id !== req.userId) {
+    return res.status(403).json({ message: '수정 권한이 없습니다.' });
   }
 
   const updatedComment = await commentRepository.update(id, text);
@@ -85,7 +85,7 @@ export const deleteComment = async (req, res) => {
     return res.status(404).json({ message: '댓글이 존재하지 않습니다.' });
   }
 
-  if (comment.userId !== req.userId) {
+  if (comment.user.id !== req.userId) {
     return res.status(403).json({ message: '삭제 권한이 없습니다.' });
   }
 

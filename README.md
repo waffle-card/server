@@ -51,8 +51,10 @@
 ```javascript
 {
 	id: String,
-	userId: String,
-	userName: String,
+	user: {
+    id: String,
+    name: String,
+  },
 	waffleCardId: String,
 	text: String,
 	createdAt: String,
@@ -407,14 +409,15 @@ waffle-card-id: waffleCardId
 // Response 200 ok
 [
   {
-    "_id": String,
-    "userId": String,
-    "userName": String,
-    "waffleCardId": String,
-    "text": String,
-    "createdAt": String,
-    "updatedAt": String,
-    "id": String
+    id: String
+    user: {
+      id: String,
+      name: String,
+    },
+    waffleCardId: String,
+    text: String,
+    createdAt: String,
+    updatedAt: String,
   },
   ... // 댓글이 담긴 배열 반환
 ]
@@ -431,15 +434,16 @@ waffle-card-id: waffleCardId
 ```js
 // Response 200 ok
 {
-  "_id": String,
-	"userId": String,
-	"userName": String,
-	"waffleCardId": String,
-	"text": String,
-	"createdAt": String,
-	"updatedAt": String,
-	"id": String
-}
+    id: String
+    user: {
+      id: String,
+      name: String,
+    },
+    waffleCardId: String,
+    text: String,
+    createdAt: String,
+    updatedAt: String,
+},
 ```
 
 
@@ -462,15 +466,13 @@ Authorization: bearer JWT토큰
 
 // Response 201 ok
 {
-  "_id": String,
-	"userId": String,
-	"userName": String,
-	"waffleCardId": String,
-	"text": String,
-	"createdAt": String,
-	"updatedAt": String,
-	"id": String
-}
+    id: String,
+    user: String, // 작성자 ID
+    waffleCardId: String,
+    text: String,
+    createdAt: String,
+    updatedAt: String,
+},
 ```
 
 
@@ -490,15 +492,13 @@ Authorization: bearer JWT토큰
 
 // Response 200 ok
 {
-	"_id": String,
-	"userId": String,
-	"userName": String,
-	"waffleCardId": String,
-	"text": String,
-	"createdAt": String,
-	"updatedAt": String,
-	"id": String
-}
+    id: String,
+    user: String, // 작성자 ID
+    waffleCardId: String,
+    text: String,
+    createdAt: String,
+    updatedAt: String,
+},
 ```
 
 
