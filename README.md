@@ -343,7 +343,10 @@ Authorization: bearer JWT토큰
 // Response 201 ok
 {
 	id: String,
-	user: String, // 작성자 ID
+	user: {
+    id: String,
+    name: String,
+  },
 	emoji: String,
 	color: String,
 	hashTags: String[],
@@ -373,7 +376,10 @@ Authorization: bearer JWT토큰
 // Response 200 ok
 {
 	id: String,
-	user: String, // 작성자 ID
+	user: {
+    id: String,
+    name: String,
+  },
 	emoji: String,
 	color: String,
 	hashTags: String[],
@@ -472,13 +478,16 @@ Authorization: bearer JWT토큰
 
 // Response 201 ok
 {
+	id: String,
+	user: {
     id: String,
-    user: String, // 작성자 ID
-    waffleCardId: String,
-    text: String,
-    createdAt: String,
-    updatedAt: String,
-},
+    name: String,
+  },
+	waffleCardId: String,
+	text: String,
+	createdAt: String,
+	updatedAt: String,
+}
 ```
 
 
@@ -498,13 +507,16 @@ Authorization: bearer JWT토큰
 
 // Response 200 ok
 {
+	id: String,
+	user: {
     id: String,
-    user: String, // 작성자 ID
-    waffleCardId: String,
-    text: String,
-    createdAt: String,
-    updatedAt: String,
-},
+    name: String,
+  },
+	waffleCardId: String,
+	text: String,
+	createdAt: String,
+	updatedAt: String,
+}
 ```
 
 
