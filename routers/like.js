@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.post('/', isAuth, likeController.createLike);
 
-router.delete('/:id', isAuth, likeController.deleteLike);
+router.delete('/', isAuth, likeController.deleteLike);
 
 export default router;

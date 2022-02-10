@@ -22,12 +22,8 @@ export const getAllByUserId = async userId => {
   return Like.find({ userId });
 };
 
-export const getByWaffleCardId = async waffleCardId => {
-  return Like.findOne({ userId });
-};
-
-export const getByUserIdAndWaffleCardId = async (userId, waffleCardId) => {
-  return Like.findOne({ userId, waffleCardId });
+export const getAllByWaffleCardId = async waffleCardId => {
+  return Like.find({ waffleCardId });
 };
 
 export const create = async (userId, waffleCardId) => {
@@ -36,4 +32,8 @@ export const create = async (userId, waffleCardId) => {
 
 export const remove = async id => {
   return Like.findOneAndDelete({ id });
+};
+
+export const removeAllByWaffleCardId = async waffleCardId => {
+  return Like.deleteMany({ waffleCardId });
 };

@@ -9,8 +9,6 @@ const waffleCardSchema = new Mongoose.Schema(
     emoji: { type: String, required: true },
     color: { type: String, required: true },
     hashTags: { type: [String], required: true },
-    likeCount: { type: Number, required: true },
-    likeUserIds: { type: [String], required: true },
   },
   { timestamps: true, versionKey: false }
 );
@@ -28,11 +26,11 @@ export const getById = async id => {
 };
 
 export const getAllByIds = async ids => {
-  return Promise.all(ids.map(id => WaffleCard.findById(id)));
+  return WaffleCard.find({ _id: { $in: ids } }).sort({ updatedAt: -1 });
 };
 
-export const getByUserId = async userId => {
-  return WaffleCard.find({ userId });
+export const getAllByUserId = async userId => {
+  return WaffleCard.find({ userId }).sort({ updatedAt: -1 });
 };
 
 export const create = async (userId, waffleCardInfo) => {
@@ -62,46 +60,4 @@ export const update = async (id, waffleCardInfo) => {
 
 export const remove = async id => {
   return WaffleCard.findByIdAndDelete(id);
-};
-
-export const countUpLike = async id => {
-  const waffleCard = await WaffleCard.findById(id);
-
-  return WaffleCard.findByIdAndUpdate(
-    id,
-    { likeCount: ++waffleCard.likeCount },
-    { returnOriginal: false }
-  );
-};
-
-export const countDownLike = async id => {
-  const waffleCard = await WaffleCard.findById(id);
-
-  return WaffleCard.findByIdAndUpdate(
-    id,
-    { likeCount: --waffleCard.likeCount },
-    { returnOriginal: false }
-  );
-};
-
-export const addLikeUserId = async (id, userId) => {
-  const waffleCard = await WaffleCard.findById(id);
-  const newLikeUserIds = [...new Set([...waffleCard.likeUserIds, userId])];
-
-  return WaffleCard.findByIdAndUpdate(
-    id,
-    { likeUserIds: newLikeUserIds },
-    { returnOriginal: false }
-  );
-};
-
-export const DeleteLikeUserId = async (id, userId) => {
-  const waffleCard = await WaffleCard.findById(id);
-  const newLikeUserIds = waffleCard.likeUserIds.filter(id => id !== userId);
-
-  return WaffleCard.findByIdAndUpdate(
-    id,
-    { likeUserIds: newLikeUserIds },
-    { returnOriginal: false }
-  );
 };

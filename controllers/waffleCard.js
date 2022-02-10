@@ -3,23 +3,37 @@ import * as userRepository from '../data/auth.js';
 import * as likeRepository from '../data/like.js';
 import { isValidId } from './utils.js';
 
+const createWaffleCardInfo = async waffleCard => {
+  const { id, userId, userName, emoji, color, hashTags, createdAt, updatedAt } =
+    waffleCard;
+  const likes = await likeRepository.getAllByWaffleCardId(waffleCard.id);
+  const likeUserIds = likes.map(like => like.userId);
+  return {
+    id,
+    userId,
+    userName,
+    emoji,
+    color,
+    hashTags,
+    createdAt,
+    updatedAt,
+    likeUserIds,
+  };
+};
+
+const createWaffleCardsInfos = async waffleCards => {
+  const waffleCardInfos = await Promise.all(
+    waffleCards.map(waffleCard => {
+      return createWaffleCardInfo(waffleCard);
+    })
+  );
+  return waffleCardInfos;
+};
+
 export const getWaffleCards = async (req, res) => {
   const waffleCards = await waffleCardRepository.getAll();
-  res.status(200).json(waffleCards);
-};
-
-export const getWaffleCardsByUserId = async (req, res) => {
-  const userId = req.userId;
-  const waffleCard = await waffleCardRepository.getByUserId(userId);
-  res.status(200).json(waffleCard);
-};
-
-export const getWaffleCardsByUserLiked = async (req, res) => {
-  const userId = req.userId;
-  const likes = await likeRepository.getAllByUserId(userId);
-  const waffleCardIds = likes.map(like => like.waffleCardId);
-  const waffleCards = await waffleCardRepository.getAllByIds(waffleCardIds);
-  res.status(200).json(waffleCards);
+  const waffleCardsInfos = await createWaffleCardsInfos(waffleCards);
+  res.status(200).json(waffleCardsInfos);
 };
 
 export const getWaffleCardById = async (req, res) => {
@@ -28,7 +42,29 @@ export const getWaffleCardById = async (req, res) => {
     return res.status(404).json({ message: `유효한 id 형식이 아닙니다.` });
   }
   const waffleCard = await waffleCardRepository.getById(waffleCardId);
-  res.status(200).json(waffleCard);
+
+  if (!waffleCard) {
+    return res.status(404).json({ message: `와플카드가 존재하지 않습니다.` });
+  }
+
+  const waffleCardInfo = createWaffleCardInfo(waffleCard);
+  res.status(200).json(waffleCardInfo);
+};
+
+export const getWaffleCardsByUserId = async (req, res) => {
+  const userId = req.userId;
+  const waffleCards = await waffleCardRepository.getAllByUserId(userId);
+  const waffleCardsInfos = await createWaffleCardsInfos(waffleCards);
+  res.status(200).json(waffleCardsInfos);
+};
+
+export const getWaffleCardsByUserLiked = async (req, res) => {
+  const userId = req.userId;
+  const likes = await likeRepository.getAllByUserId(userId);
+  const waffleCardIds = likes.map(like => like.waffleCardId);
+  const waffleCards = await waffleCardRepository.getAllByIds(waffleCardIds);
+  const waffleCardsInfos = await createWaffleCardsInfos(waffleCards);
+  res.status(200).json(waffleCardsInfos);
 };
 
 export const createWaffleCard = async (req, res) => {
@@ -85,5 +121,6 @@ export const deleteWaffleCard = async (req, res, next) => {
   }
 
   await waffleCardRepository.remove(waffleCardId);
+  await likeRepository.removeAllByWaffleCardId(waffleCardId);
   res.sendStatus(204);
 };
