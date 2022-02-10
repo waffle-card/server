@@ -1,6 +1,7 @@
 import * as waffleCardRepository from '../data/waffleCard.js';
 import * as userRepository from '../data/auth.js';
 import * as likeRepository from '../data/like.js';
+import * as commentRepository from '../data/comment.js';
 import { isValidId } from './utils.js';
 
 const createWaffleCardInfo = async waffleCard => {
@@ -123,5 +124,6 @@ export const deleteWaffleCard = async (req, res, next) => {
 
   await waffleCardRepository.remove(waffleCardId);
   await likeRepository.removeAllByWaffleCardId(waffleCardId);
+  await commentRepository.removeAllByWaffleCardId(waffleCardId);
   res.sendStatus(204);
 };

@@ -49,3 +49,7 @@ export const update = async (id, text) => {
 export const remove = async id => {
   return Comment.findByIdAndDelete(id);
 };
+
+export const removeAllByWaffleCardId = async waffleCardId => {
+  return Comment.deleteMany({ waffleCardId });
+};
