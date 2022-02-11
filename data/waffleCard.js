@@ -32,7 +32,7 @@ export const getAllByIds = async ids => {
 };
 
 export const getAllByUserId = async userId => {
-  return WaffleCard.find({ userId })
+  return WaffleCard.find({ user: userId })
     .populate({ path: 'user', select: 'name' })
     .sort({ updatedAt: -1 });
 };

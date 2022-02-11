@@ -26,7 +26,10 @@ export const getById = async id => {
 };
 
 export const getByUserId = async userId => {
-  return Comment.findOne({ userId }).populate({ path: 'user', select: 'name' });
+  return Comment.findOne({ user: userId }).populate({
+    path: 'user',
+    select: 'name',
+  });
 };
 
 export const create = async (userId, waffleCardId, text) => {
