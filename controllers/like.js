@@ -47,12 +47,20 @@ export const deleteLike = async (req, res) => {
     return res.status(404).json({ message: '존재하지 않는 와플카드입니다.' });
   }
 
-  const likes = await likeRepository.getAllByUserId(userId);
-  const like = likes.find(like => like.waffleCardId === waffleCardId);
+  const like = await likeRepository.getByUserIdAndWaffleCardId(
+    userId,
+    waffleCardId
+  );
 
   if (!like) {
     return res.status(400).json({
       message: '좋아요를 누른 와플 카드가 아닙니다.',
+    });
+  }
+
+  if (!like.id) {
+    return res.status(500).json({
+      message: '서버에러가 발생했습니다. 좋아요 ID를 찾지 못했습니다.',
     });
   }
 
