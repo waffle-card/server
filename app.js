@@ -3,6 +3,8 @@ import 'express-async-errors';
 import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
+import cron from 'node-cron';
+import http from 'http';
 import authRouter from './routers/auth.js';
 import waffleCardRouter from './routers/waffleCard.js';
 import commentRouter from './routers/comment.js';
@@ -43,4 +45,10 @@ app.use((error, req, res) => {
 connectDB().then(() => {
   console.log(`Server is started... ${new Date()}`);
   app.listen(config.port);
+});
+
+// 헤로쿠 서버 잠들기 방지
+cron.schedule('*/20 23,0-14 * * *', () => {
+  http.get('http://waffle-card.herokuapp.com');
+  console.log('wake up!', new Date());
 });
